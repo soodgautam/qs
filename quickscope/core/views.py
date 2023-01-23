@@ -251,21 +251,3 @@ def search(request):
 
 
     return render(request, 'search.html', {'user_object': user_profile, 'username_profile_list': username_profile_list})
-
-
-def forgot_password(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = auth.authenticate(username=username, password=password)
-
-        if user is not None:
-            auth.login(request, user)
-            return redirect('/')
-        else:
-            messages.info(request, 'Credentials invalid')
-            return redirect('forgot_password')
-
-    else:
-        return render(request, 'forgot_password.html')
